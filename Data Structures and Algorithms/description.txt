@@ -1,0 +1,1 @@
+Each folder corresponds to a laboratory assignment, in which I had to implement data types using different data structures.
