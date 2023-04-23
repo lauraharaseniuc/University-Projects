@@ -1,3 +1,3 @@
-The folders contain the network configuration model implemented with both static and dynamic routing.
+The folders contain the network configuration model implemented with both static and dynamic routing using Cisco Packet Tracer Student.
 The topology of the network assigned can be found in network_topology.png
 The topology of the network divided in subnetworks can be found in subnetworks.png
