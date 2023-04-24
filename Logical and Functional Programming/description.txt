@@ -1,0 +1,1 @@
+The folder contains my Prolog and Lisp laboratories and assignments marked as L1,L2,... as well as the hangman game developed in Clisp.
