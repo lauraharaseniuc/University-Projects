@@ -1,0 +1,92 @@
+     1                                  bits 32 ;asamblare și compilare pentru arhitectura de 32 biți
+     2                                  ; definim punctul de intrare in programul principal
+     3                                  global start
+     4                                  
+     5                                  ; declaram functiile externe necesare programului nostru 
+     6                                  extern exit, scanf, printf ; indicam asamblorului ca exit exista, chiar daca noi nu o vom defini
+     7                                  import exit msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  import printf msvcrt.dll  ; exit este o functie care incheie procesul, este definita in msvcrt.dll
+    10                                          ; msvcrt.dll contine exit, printf si toate celelalte functii C-runtime importante
+    11                                  
+    12                                  ; segmentul de date in care se vor defini variabilele 
+    13                                  ;Sa se citeasca de la tastatura un octet si un cuvant. Sa se afiseze pe ecran daca bitii octetului citit se regasesc consecutiv printre bitii cuvantului. Exemplu:
+    14                                  ;a = 10 = 0000 1010b
+    15                                  ;b = 256 = 0000 0001 0000 0000b
+    16                                  ;Pe ecran se va afisa NU.
+    17                                  ;a = 0Ah = 0000 1010b
+    18                                  ;b = 6151h = 0110 0001 0101 0001b
+    19                                  ;Pe ecran se va afisa DA (bitii se regasesc pe pozitiile 5-12).
+    20                                  segment data use32 class=data
+    21 00000000 00000000                a dd 0
+    22 00000004 00000000                b dd 0
+    23 00000008 00                      x db 0
+    24 00000009 0000                    y dw 0
+    25 0000000B 256400                  format db "%d", 0
+    26 0000000E 6E7220657374652025-     format2 db "nr este %d", 0
+    26 00000017 6400               
+    27 00000019 444100                  format3 db "DA", 0
+    28 0000001C 4E5500                  format4 db "NU", 0
+    29 0000001F 00                      ok db 0
+    30                                  
+    31                                  ; segmentul de cod
+    32                                  segment code use32 class=code
+    33                                  start:
+    34 00000000 68[00000000]            push dword a
+    35 00000005 68[0B000000]            push dword format 
+    36 0000000A FF15[00000000]          call [scanf] 
+    37 00000010 83C408                  add esp, 4*2
+    38                                  
+    39 00000013 68[04000000]            push dword b
+    40 00000018 68[0B000000]            push dword format
+    41 0000001D FF15[00000000]          call [scanf] 
+    42 00000023 83C408                  add esp, 4*2
+    43                                  
+    44 00000026 66A1[04000000]          mov ax, word [b]
+    45                                  
+    46                                  ; cmp al, byte[a]
+    47                                  ; jz egale
+    48                                  ; jmp continua2
+    49                                  ; egale:
+    50                                      ; mov bl, 1
+    51                                      ; mov [ok], bl
+    52                                  ; continua2:
+    53                                      
+    54                                  
+    55                                  
+    56 0000002C B908000000              mov ecx, 8
+    57 00000031 E31D                    jecxz final
+    58                                  repeta:
+    59 00000033 66A1[04000000]              mov ax, word [b]
+    60 00000039 66D3C8                      ror ax, cl
+    61 0000003C 3A05[00000000]              cmp al, byte[a]
+    62 00000042 7402                        je exista
+    63 00000044 EB08                        jmp continua
+    64                                      exista: 
+    65 00000046 B301                            mov bl, 1
+    66 00000048 881D[1F000000]                  mov [ok], bl
+    67                                      continua:
+    68 0000004E E2E3                    loop repeta
+    69                                  final:
+    70                                  
+    71 00000050 B301                    mov bl, 1
+    72 00000052 381D[1F000000]          cmp [ok], bl
+    73                                  
+    74 00000058 7402                    je exista2
+    75 0000005A EB10                    jmp nu_exista
+    76                                  exista2: 
+    77 0000005C 68[19000000]            push dword format3
+    78 00000061 FF15[00000000]          call[printf] 
+    79 00000067 83C404                  add esp, 4*1
+    80 0000006A EB0E                    jmp final2
+    81                                  nu_exista:
+    82 0000006C 68[1C000000]            push dword format4
+    83 00000071 FF15[00000000]          call[printf] 
+    84 00000077 83C404                  add esp, 4*1
+    85                                  final2:
+    86                                  
+    87                                  
+    88                                  
+    89                                      ; exit(0)
+    90 0000007A 6A00                        push dword 0 ; se pune pe stiva parametrul functiei exit
+    91 0000007C FF15[00000000]              call [exit] ; apelul functiei exit pentru terminarea executiei programului

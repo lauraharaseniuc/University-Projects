@@ -1,0 +1,81 @@
+     1                                  bits 32 ;asamblare și compilare pentru arhitectura de 32 biți
+     2                                  ; definim punctul de intrare in programul principal
+     3                                  global start
+     4                                  
+     5                                  ; declaram functiile externe necesare programului nostru 
+     6                                  extern exit ; indicam asamblorului ca exit exista, chiar daca noi nu o vom defini
+     7                                  import exit msvcrt.dll  ; exit este o functie care incheie procesul, este definita in msvcrt.dll
+     8                                          ; msvcrt.dll contine exit, printf si toate celelalte functii C-runtime importante
+     9                                  
+    10                                  ; segmentul de date in care se vor defini variabilele 
+    11                                  segment data use32 class=data
+    12                                  ; a - byte
+    13                                  ; b - word
+    14                                  ; c - doubleword
+    15                                  ; d - quadword
+    16 00000000 F6                      a db -10
+    17 00000001 ECFF                    b dw -20
+    18 00000003 28000000                c dd 40
+    19 00000007 0A00000000000000        d dq 10
+    20 0000000F <res 00000008>          e resq 1
+    21                                  
+    22                                  ; segmentul de cod
+    23                                  segment code use32 class=code
+    24                                  start:
+    25                                  ; (d+a)-(c-b)-(b-a)+(c+d) cu semn
+    26                                  
+    27                                  ;il pun pe d in ecx:ebx 
+    28 00000000 8B1D[07000000]          mov ebx, dword[d]
+    29 00000006 8B0D[0B000000]          mov ecx, dword[d+4]
+    30                                  
+    31                                  ;il extind pe a la edx:eax cu semn
+    32 0000000C A0[00000000]            mov al, byte[a]             ; al = a
+    33 00000011 6698                    cbw                         ; ax = al = a
+    34 00000013 98                      cwde                        ; eax = ax = a
+    35 00000014 99                      cdq                         ; edx:eax = eax = a  
+    36                                  
+    37 00000015 01D8                    add eax, ebx
+    38 00000017 11CA                    adc edx, ecx                ; edx:eax = d+a 
+    39                                  
+    40 00000019 8B1D[03000000]          mov ebx, dword[c]
+    41 0000001F 668B0D[01000000]        mov cx, word[b]
+    42 00000026 6629CB                  sub bx, cx
+    43 00000029 83DB00                  sbb ebx, 0                  ; ebx = c-b
+    44                                  
+    45 0000002C B900000000              mov ecx, 0                  ; ecx:ebx = c-b
+    46                                  
+    47 00000031 29D8                    sub eax, ebx
+    48 00000033 19CA                    sbb edx, ecx                ; edx:eax = (d+a) - (c-b)
+    49                                  
+    50 00000035 89C3                    mov ebx, eax
+    51 00000037 89D1                    mov ecx, edx                ; ecx:ebx = edx:eax = (d+a) - (c-b)
+    52                                  
+    53 00000039 A0[00000000]            mov al, byte[a] 
+    54 0000003E 6698                    cbw                         ;ax = al = a  
+    55 00000040 668B15[01000000]        mov dx, word[b]
+    56 00000047 6629C2                  sub dx, ax                  ; dx = dx - ax = b-a
+    57 0000004A 6689D0                  mov ax, dx                  ; ax = dx = b-a 
+    58 0000004D 98                      cwde                        ; eax = ax = b-a 
+    59                                  
+    60 0000004E 29C3                    sub ebx, eax 
+    61 00000050 83D900                  sbb ecx, 0                  ; ecx:ebx = (d+a) - (c-b) - (b-a)
+    62                                  
+    63                                  ;il pun pe d in edx:eax 
+    64 00000053 A1[07000000]            mov eax, dword[d]
+    65 00000058 8B15[13000000]          mov edx, dword[e+4]
+    66                                  
+    67 0000005E 0305[03000000]          add eax, [c] 
+    68 00000064 83D200                  adc edx, 0                  ; edx:eax = (d+c)
+    69                                  
+    70 00000067 01D8                    add eax, ebx
+    71 00000069 11CA                    adc edx, ecx                ; edx:eax = ecx:ebx + edx:eax = (d+a) - (c-b) - (b-a) + (d+c)
+    72                                  
+    73 0000006B 50                      push eax
+    74 0000006C 8F05[0F000000]          pop dword[e] 
+    75 00000072 52                      push edx
+    76 00000073 8F05[13000000]          pop dword[e+4]              ; e = edx:eax = (d+a) - (c-b) - (b-a) + (d+c)
+    77                                  
+    78                                  
+    79                                      ; exit(0)
+    80 00000079 6A00                        push dword 0 ; se pune pe stiva parametrul functiei exit
+    81 0000007B FF15[00000000]              call [exit] ; apelul functiei exit pentru terminarea executiei programului

@@ -1,0 +1,67 @@
+     1                                  bits 32 ;asamblare și compilare pentru arhitectura de 32 biți
+     2                                  ; definim punctul de intrare in programul principal
+     3                                  global start
+     4                                  
+     5                                  ; declaram functiile externe necesare programului nostru 
+     6                                  extern exit ; indicam asamblorului ca exit exista, chiar daca noi nu o vom defini
+     7                                  import exit msvcrt.dll  ; exit este o functie care incheie procesul, este definita in msvcrt.dll
+     8                                          ; msvcrt.dll contine exit, printf si toate celelalte functii C-runtime importante
+     9                                  
+    10                                  ; segmentul de date in care se vor defini variabilele 
+    11                                  segment data use32 class=data
+    12                                  ; a - byte
+    13                                  ; b - word
+    14                                  ; c - doubleword
+    15                                  ; d - quadword
+    16 00000000 0A                      a db 10
+    17 00000001 1400                    b dw 20
+    18 00000003 1E000000                c dd 30
+    19 00000007 6400000000000000        d dq 100
+    20 0000000F <res 00000008>          e resq 1
+    21                                  
+    22                                  ; segmentul de cod
+    23                                  segment code use32 class=code
+    24                                  start:
+    25                                  ; e = (d+d) - (a+a) - (b+b) - (c+c) fara semn
+    26                                  ;il pun pe d+d in edx:eax
+    27 00000000 A1[07000000]            mov eax, dword[d]
+    28 00000005 8B15[0B000000]          mov edx, dword[d+4]
+    29 0000000B 01C0                    add eax, eax 
+    30 0000000D 11D2                    adc edx, edx        ; edx:eax = d+d 
+    31                                  
+    32 0000000F BB00000000              mov ebx, 0
+    33 00000014 8A1D[00000000]          mov bl, byte[a] 
+    34 0000001A 021D[00000000]          add bl, [a]         ; bl = bl+a = a+a si ebx = bl = a+a
+    35                                  
+    36 00000020 B900000000              mov ecx, 0          ; ecx:ebx = ebx = a+a 
+    37                                  
+    38                                  ;fac (d+d) - (a+a) 
+    39 00000025 29D8                    sub eax, ebx 
+    40 00000027 19CA                    sbb edx, ecx        ; eax:edx = (d+d) - (a+a)
+    41                                  
+    42                                  ;il pun pe  b+b in ecx:ebx 
+    43 00000029 B900000000              mov ecx, 0 
+    44 0000002E BB00000000              mov ebx, 0
+    45 00000033 668B1D[01000000]        mov bx, word[b]
+    46 0000003A 66031D[01000000]        add bx, [b]
+    47                                  
+    48 00000041 29D8                    sub eax, ebx 
+    49 00000043 19CA                    sbb edx, ecx        ; eax:edx = (d+d) - (a+a) - (b+b) 
+    50                                  
+    51                                  ;il pun pe c+c in ecx:ebx
+    52 00000045 B900000000              mov ecx, 0 
+    53 0000004A 8B1D[03000000]          mov ebx, dword[c]
+    54 00000050 031D[03000000]          add ebx, [c]
+    55                                  
+    56 00000056 29D8                    sub eax, ebx
+    57 00000058 19CA                    sbb edx, ecx        ; eax:edx = (d+d) - (a+a) - (b+b) - (c+c)
+    58                                  
+    59 0000005A 50                      push eax
+    60 0000005B 8F05[0F000000]          pop dword[e]             ; e = eax:edx = (d+d) - (a+a) - (b+b) - (c+c)
+    61 00000061 52                      push edx 
+    62 00000062 8F05[13000000]          pop dword[e+4]
+    63                                            
+    64                                  
+    65                                      ; exit(0)
+    66 00000068 6A00                        push dword 0 ; se pune pe stiva parametrul functiei exit
+    67 0000006A FF15[00000000]              call [exit] ; apelul functiei exit pentru terminarea executiei programului

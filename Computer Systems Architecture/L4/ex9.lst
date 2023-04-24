@@ -1,0 +1,63 @@
+     1                                  bits 32 ;asamblare și compilare pentru arhitectura de 32 biți
+     2                                  ; definim punctul de intrare in programul principal
+     3                                  global start
+     4                                  
+     5                                  ; declaram functiile externe necesare programului nostru 
+     6                                  extern exit ; indicam asamblorului ca exit exista, chiar daca noi nu o vom defini
+     7                                  import exit msvcrt.dll  ; exit este o functie care incheie procesul, este definita in msvcrt.dll
+     8                                          ; msvcrt.dll contine exit, printf si toate celelalte functii C-runtime importante
+     9                                  
+    10                                  ; segmentul de date in care se vor defini variabilele 
+    11                                  segment data use32 class=data
+    12                                  ; a - word
+    13                                  ; b - byte
+    14                                  ; c - doubleword
+    15                                  
+    16 00000000 323B                    a dw 0011101100110010b
+    17 00000002 F3                      b db 11110011b 
+    18 00000003 00000000                c dd 0
+    19                                  
+    20                                  
+    21                                  ; segmentul de cod
+    22                                  segment code use32 class=code
+    23                                  start:
+    24                                  ;construim pe c in ebx 
+    25 00000000 BB00000000              mov ebx, 0 
+    26                                  
+    27                                  ;bitii 0-3 ai lui C coincid cu bitii 6-9 ai lui A
+    28 00000005 B800000000              mov eax, 0 
+    29 0000000A 66A1[00000000]          mov ax, [a]
+    30 00000010 25C0030000              and eax, 0000001111000000b
+    31 00000015 C1C806                  ror eax, 6
+    32 00000018 09C3                    or ebx, eax
+    33                                  
+    34                                  ;bitii 4-5 ai lui C au valoarea 1
+    35 0000001A 83CB30                  or ebx, 0000000000110000b
+    36                                  
+    37                                  ;bitii 6-7 ai lui C coincid cu bitii 1-2 ai lui B
+    38 0000001D B800000000              mov eax, 0
+    39 00000022 A0[02000000]            mov al, [b]
+    40 00000027 83E006                  and eax, 0000000000000110b
+    41 0000002A C1C005                  rol eax, 5
+    42 0000002D 09C3                    or ebx, eax
+    43                                  
+    44                                  ;bitii 8-23 ai lui C coincid cu bitii lui A
+    45 0000002F B800000000              mov eax, 0 
+    46 00000034 66A1[00000000]          mov ax, [a]
+    47 0000003A 25FFFF0000              and eax, 1111111111111111b
+    48 0000003F C1C008                  rol eax, 8
+    49 00000042 09C3                    or ebx, eax
+    50                                  
+    51                                  ;bitii 24-31 ai lui C coincid cu bitii lui B
+    52 00000044 B800000000              mov eax, 0
+    53 00000049 A0[02000000]            mov al, [b]
+    54 0000004E 25FF000000              and eax, 11111111b
+    55 00000053 C1C018                  rol eax, 24
+    56 00000056 09C3                    or ebx, eax
+    57                                  
+    58 00000058 891D[03000000]          mov [c], ebx
+    59                                  
+    60                                  
+    61                                      ; exit(0)
+    62 0000005E 6A00                        push dword 0 ; se pune pe stiva parametrul functiei exit
+    63 00000060 FF15[00000000]              call [exit] ; apelul functiei exit pentru terminarea executiei programului
