@@ -1,0 +1,1 @@
+This folder contains the prototype for a social network I developed over the course of the third semester, as laboratory assessment.
