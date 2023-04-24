@@ -1,0 +1,44 @@
+.left-section {
+    -fx-background-color: #91d2e2;
+}
+
+#company_label {
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+    -fx-font-size: 25;
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #91d2e2;
+}
+
+.right-section {
+    -fx-background-color: #dbebfa;
+}
+
+#closeButton{
+    -fx-background-color: #dbebfa;
+}
+
+#usernameLabel, #passwordLabel, #signUpLabel {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
+
+#passwordField, #usernameField {
+    -fx-border-color: #a8a8a7;
+    -fx-border-width: 2;
+}
+
+#logInButton {
+    -fx-background-color: #a8a8a7;
+    -fx-font-size: 20;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+}
+
+#logInErrorMessageLabel {
+    -fx-text-fill: red;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}

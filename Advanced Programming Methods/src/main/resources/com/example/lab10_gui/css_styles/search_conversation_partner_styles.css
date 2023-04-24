@@ -1,0 +1,13 @@
+#rightSection {
+    -fx-background-color: #91d2e2;
+}
+
+#leftSection {
+    -fx-background-color: #dbebfa;
+}
+
+#searchConversationPartnerListView{
+    -fx-font-size: 20;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+}
