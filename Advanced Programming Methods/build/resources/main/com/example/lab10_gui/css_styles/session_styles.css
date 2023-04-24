@@ -1,0 +1,18 @@
+#statusBarButton {
+    -fx-background-color: #dbebfa;
+}
+
+#newConvButton {
+    -fx-background-color: #7338e7;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+}
+
+.middle-section {
+    -fx-background-color: #dbebfa;
+}
+
+.left-section {
+    -fx-background-color: #91d2e2;
+}
