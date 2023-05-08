@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Lab1 &#238;n HTML 5</title>
+</head>
+
+<body>
+	<div>
+		<h1>Formularul de mai jos se completeaz&#259; cu majuscule.</h1>
+		
+			<img src="university.jfif" alt="univeristy logo" height="200" width="700">
+		
+	</div>
+	<div>
+		<table>
+			<tr>
+				<th colspan="8">Formular &#238;nscriere facultate</th>
+			</tr>
+			<tr>
+				<td colspan="8"><h4>Date personale</h4></td>
+			</tr>
+			<tr>
+				<td colspan="2">Nume</td>
+				<td colspan="2"><textarea rows="1" cols="20"></textarea></td>
+				<td colspan="2">Prenume</td>
+				<td colspan="2"><textarea rows="1" cols="20"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="4">CNP</td>
+				<td colspan="4"><textarea rows="1" cols="20"></textarea></td>
+			</tr>
+			<tr>
+				<td>Data na&#351;terii</td>
+				<td><input type="text"></td>
+				<td>Localitatea</td>
+				<td><textarea rows="1" cols="20"></textarea></td>
+				<td>Jude&#355;ul</td>
+				<td><textarea rows="1" cols="20"></textarea></td>
+				<td>&#354;ara</td>
+				<td><textarea rows="1" cols="20"></textarea></td>
+			</tr>
+			<tr>
+				<td>Strada</td>
+				<td><textarea rows="1" cols="20"></textarea></td>
+				<td>Num&#259;r</td>
+				<td><textarea rows="1" cols="10"></textarea></td>
+				<td>Bloc</td>
+				<td><textarea rows="1" cols="10"></textarea></td>
+				<td>Scara</td>
+				<td><textarea rows="1" cols="10"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="1">Apartament</td>
+				<td colspan="3"><textarea rows="1" cols="10"></textarea></td>
+				<td colspan="2">Cod Po&#351;tal</td>
+				<td colspan="2"><textarea rows="1" cols="10"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="1">Gen</td>
+				<td colspan="1"><input type="radio">F<input type="radio" checked>M</td>
+				<td colspan="2">Adres&#259; mail</td>
+				<td colspan="2"><input type="text"></td>
+				<td colspan="1">Telefon</td>
+				<td colspan="1"><input type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="6">Ultima form&#259; de &#238;nv&#259;&#355;&#259;m&#226;nt absolvit&#259;</td>
+				<td colspan="2"><select name="selectareFormaDeInvatamant" size="3">
+					<option>&#350;coala Primar&#259;</option>
+					<option>Gimnaziu</option>
+					<option>Studii profesionale</option>
+					<option selected>Liceu/Colegiu</option>
+					<option>Studii postliceale</option>
+					<option>Studii universitare</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td colspan="8"><h4>Date despre facultate &#351; specializare</h4></td>
+			</tr>
+			<tr>
+				<td colspan="8">Doresc &#238;nscrierea &#238;n cadrul 
+					<input type="text" value="Univesit&#259;&#355;ii Babes Bolyai" readonly>
+					din
+					<input type="text" value="Cluj-Napoca" readonly>
+					, <strong>Facultatea de Matematic&#259;-Informatic&#259;</strong>
+					la specializarea 
+					<textarea rows="1" cols="30"></textarea>
+					cu limba de predare
+					<textarea rows="1" cols="20"></textarea>
+					pe baza rezultatelor ob&#355;inute la concursul de admitere la disciplina 
+					<br>
+					<input type="checkbox" id="disciplina1">
+					<label for="disciplina1">Matematic&#259;</label><br>
+					<input type="checkbox" id="disciplina2"> 
+					<label for="disciplina2">Informatic&#259;</label><br>
+					<input type="checkbox" id="admisPeBazaRezultatelor"> 
+					<label for="admisPeBazaRezultatelor">Sunt admis pe baza rezultatelor ob&#355;inute &#238;n timpul liceului</label>
+					<br>
+					nota 
+					<textarea rows="1" cols="10"></textarea>.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<h3>Lista specializ&#259;rilor: </h3>
+					<ul>
+						<li><h2>Informatic&#259;</h2>
+							<ul>
+								<li>Informatic&#259; &#238;n limba roman&#259;</li>
+								<li>Informatic&#259; &#238;n limba englez&#259;</li>
+								<li>Informatic&#259; &#238;n limba german&#259;</li>
+								<li>Informatic&#259; &#238;n limba maghiar&#259;</li>
+							</ul>
+						</li>
+						<li><h2>Matematic&#259;-Informatic&#259;</h2>
+							<ul>
+								<li>Matematic&#259;-Informatic&#259; &#238;n limba roman&#259;</li>
+								<li>Matematic&#259;-Informatic&#259; &#238;n limba englez&#259;</li>
+								<li>Matematic&#259;-Informatic&#259; &#238;n limba maghiar&#259;</li>
+							</ul>
+						</li>
+						<li><h2>Matematic&#259;</h2>
+							<ul>
+								<li>Matematic&#259; &#238;n limba roman&#259;</li>
+								<li>Matematic&#259; &#238;n limba maghiar&#259;</li>
+							</ul>
+						</li>
+					</ul>
+				</td>
+				<td colspan="5">
+					&#206;n tabelul de mai jos se g&#259;sesc taxele anuale corespunz&#259;toare fiec&#259;rei specializ&#259;ri indiferent de limba de predare:
+					<table>
+						<tr>
+							<th colspan="1">Specializare</th> 
+							<th colspan="1">Tax&#259; anual&#259;</th>
+						</tr>
+						<tr>
+							<td colspan="1">Informatic&#259;</td>
+							<td colspan="1">4400</td>
+						</tr>
+						<tr>
+							<td colspan="1">Matematic&#259;-Informatic&#259;</td>
+							<td colspan="1">4000</td>
+						</tr>
+						<tr>
+							<td colspan="1">Matematic&#259;</td>
+							<td colspan="1">3600</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8">Cazarea &#238;n c&#259;minele studen&#355;e&#351;ti</td>
+			</tr>
+			<tr> 
+				<td colspan="8">
+					<form action="get">
+						<fieldset>
+							<legend>Detalii cazare:</legend>
+							Dori&#355;i cazarea &#238;ntr-unul din c&#259;minele studen&#355;e&#351;ti puse la dispozitie de facultatea aleas&#259;?<br>
+							<input type="checkbox" id="cerereC&#259;minExistenta"> 
+							<label for="cerereC&#259;minExistenta">Doresc cazarea &#238;n c&#259;minele studen&#355;e&#351;ti</label>
+							<input type="checkbox" id="cerereC&#259;minInexistenta"> 
+							<label for="cerereC&#259;minInexistenta">Nu doresc cazarea &#238;n c&#259;minele studen&#355;e&#351;ti</label><br><br>
+							Daca a&#355;i raspuns afirmativ la intrebarea anterioar&#259;, selecta&#355;i unul din c&#259;minele disponibile:<br>
+							<h6>Selecteaz&#259; c&#259;minele &#238;n ordinea preferin&#355;elor: </h6>
+								<select name="selectareC&#259;min" multiple size="5"> 
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option>17</option>
+									<option>18</option>
+									<option>19</option>
+									<option>20</option>
+									<option>21</option>
+									<option>22</option>
+									<option>23</option>
+									<option>24</option>
+								</select>
+						</fieldset>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<h3>Lista c&#259;minelor:</h3>
+						<ol start="11">
+							<li>C&#259;minul Economica I</li>
+							<li>C&#259;minul Economica II</li>
+							<li>C&#259;minul 1 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 2 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 3 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 4 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 5 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 14 Complex Ha&#351;deu</li>
+							<li>C&#259;minul 17 Complex Ha&#351;deu</li>
+							<li>C&#259;minul A1 Complex Ha&#351;deu</li>
+							<li>C&#259;minul A2 Complex Ha&#351;deu</li>
+							<li>C&#259;minul A3 Complex Ha&#351;deu</li>
+							<li>C&#259;minul A4 Complex Ha&#351;deu</li>
+							<li>C&#259;minul Sport XXI</li>
+						</ol> 
+						<br>
+						<h3>!!! Aten&#355;ie &#238;n urma deciziei Rectoratului <b title="Universitatea Babes-Bolyai">UBB</b> cazarea &#238;n c&#259;minele studen&#355;e&#351;ti este condi&#355;ionat&#259; de prezen&#355;a avizului epidemiologic de la medicul de familie !!!</h3>
+				</td>
+				<td colspan="5">
+					&#206;n tabelul de mai jos se afl&#259; taxele lunare aferente fiec&#259;rui c&#259;min:
+					<table>
+						<tr>
+							<th colspan="1">C&#259;minul</th> 
+							<th colspan="1">Taxa lunar&#259;</th>
+						</tr>
+						<tr>
+							<td>C&#259;minul Economica I</td> 
+							<td>190</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul Economica II</td> 
+							<td>190</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 1 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 2 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 3 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 4 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 5 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 17 Ha&#351;deu</td> 
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul 14 Ha&#351;deu</td> 
+							<td>120</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul Sport XXI</td> 
+							<td>150</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul A1 Ha&#351;deu</td> 
+							<td>200</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul A2 Ha&#351;deu</td> 
+							<td>200</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul A3 Ha&#351;deu</td> 
+							<td>200</td>
+						</tr>
+						<tr>
+							<td>C&#259;minul A4 Ha&#351;deu</td> 
+							<td>200</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8">
+					Pentru nel&#259;muriri legate de completarea formularului adresa&#355;i-v&#259; cadrului secretar responsabil de departament: 
+					<ol type="i">
+						<li>Departamentul de informatic&#259;
+							<ol>
+								<li>Bal Elvira - elvira.bal@ubbcluj.ro</li>
+								<li>Giurgiu Elisabeta - elisabeta.giurgiu@ubbcluj.ro</li>
+							</ol>
+						</li>
+						<li>Departamentul de Matematic&#259; &#351; Matematic&#259;-Informatic&#259;
+							<ol>
+								<li>Kiss Tunde - tunde.kiss@ubbcluj.ro</li>
+								<li>Andreica Eleonora - eleonora.andreica@ubbcluj.ro</li>
+							</ol>
+						</li>
+					</ol>
+					Depunerea formularelor &#238;n original la secretariatul facult&#259;&#355;ii se face de luni p&#226;n&#259; vineri p&#226;n&#259; &#238;n data de 12.07.2023 dup&#259; urm&#259;torul program: 
+					<ul>
+						<li>Luni: 09-14</li>
+						<li>Mar&#355;i: 10-14</li>
+						<li>Miercuri: 10-14</li>
+						<li>Joi: 08-12</li>
+						<li>Vineri: 10-14</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Observa&#355;ii:</td>
+				<td colspan="7">
+					<textarea rows="10" cols="130"></textarea>
+				</td>
+			</tr>
+			<tr> 
+				<td colspan="2" >Semn&#259;tur&#259; candidat</td>
+				<td colspan="4">
+					<textarea rows="5" cols="75"></textarea>
+				</td> 
+				<td colspan="1" >Data</td>
+				<td colspan="1" ><input type="text"></td>
+			</tr>
+			<tr>
+				<td colspan="8"><input type="submit" value="Trimite formular" disabled></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h5>Pentru mai multe detalii (cum ar fi procesul de departajare) vizita&#355;i pagina universit&#259;&#355;ii 
+			<a href="https://www.ubbcluj.ro/ro/"  target="_blank">aici</a>
+		</h5>
+		<h5>De asemenea pentru probleme tehnice adresa&#355;i-v&#259; personalului specializat la adresa: ubbtehnicieni@ubbcluj.ro</h5>
+	</div>
+</body>
+</html>
+

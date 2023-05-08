@@ -1,0 +1,262 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Sorteaza tabele</title> 
+    <meta charset="utf-8"/> 
+    <style>
+        td.studentCell {
+            border: 3px solid #5f9ea0;
+            border-collapse: collapse;
+        }
+        th.studentCell {
+            border: 3px solid #5f9ea0;
+            border-collapse: collapse;
+        }
+        td.trackCell {
+            border: 3px solid #ff80d5;
+            border-collapse: collapse;
+        }
+        th.trackCell {
+            border: 3px solid #ff80d5;
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        var students = []
+        var tracks = []
+
+        var initialNameHtml="";
+        var initialGroupHtml=""; 
+        var initialGradeHtml="";
+        
+        var initialTitleHtml=""; 
+        var initialArtistHtml=""; 
+        var initialAverageGradeHtml=""; 
+        var initialYearHtml="";
+
+        function populate_student_list() {
+            students=[];
+            var student1 = { 
+                name: "Laura",
+                group: 223,
+                grade: 9.5
+            } 
+            var student2 = { 
+                name: "Mihai",
+                group: 221,
+                grade: 8.5
+            } 
+            var student3 = { 
+                name: "Cornel",
+                group: 223,
+                grade: 10
+            } 
+            var student4 = { 
+                name: "Ovidiu",
+                group: 224,
+                grade: 7
+            } 
+            var student5 = { 
+                name: "Alex",
+                group: 223,
+                grade: 6
+            } 
+            students.push(student1);
+            students.push(student2);
+            students.push(student3);
+            students.push(student4);
+            students.push(student5);
+        }
+
+        function populate_track_list() {
+            tracks = [];
+            var track1 = {
+                title: "When The Sun Goes Down",
+                artist: "Arctic Monkeys", 
+                average_grade: 8.5, 
+                year: 2007
+            }
+            var track2 = {
+                title: "August",
+                artist: "The Motans", 
+                average_grade: 7, 
+                year: 2018
+            }
+            var track3 = {
+                title: "Love Is A Laserquest",
+                artist: "Arctic Monkeys", 
+                average_grade: 9, 
+                year: 2011
+            }
+            var track4 = {
+                title: "Penny Lane",
+                artist: "The Beatles", 
+                average_grade: 10, 
+                year: 1967
+            }
+            var track5 = {
+                title: "Strawberry Field",
+                artist: "The Beatles", 
+                average_grade: 7, 
+                year: 1967
+            }
+            var track6 = {
+                title: "Unwritten",
+                artist: "Natasha Bedingfield", 
+                average_grade: 9.3, 
+                year: 2011
+            }
+            tracks.push(track1);
+            tracks.push(track2);
+            tracks.push(track3);
+            tracks.push(track4);
+            tracks.push(track5);
+            tracks.push(track6);
+        }
+        
+        function populate_students_table() {
+            var nameRow = document.getElementById("nameRow");
+            var groupRow = document.getElementById("groupRow"); 
+            var gradeRow = document.getElementById("gradeRow");
+            let nameHtml = initialNameHtml;
+            let groupHtml = initialGroupHtml;
+            let gradeHtml = initialGradeHtml;
+            for (let i=0; i<students.length; i++) { 
+                nameHtml += '<td class="studentCell">'+students[i].name+'</td>';
+                groupHtml += '<td class="studentCell">'+students[i].group+'</td>';
+                gradeHtml += '<td class="studentCell">'+students[i].grade+'</td>';
+            }
+            nameRow.innerHTML = nameHtml; 
+            groupRow.innerHTML = groupHtml; 
+            gradeRow.innerHTML = gradeHtml;
+        }
+        
+        function populate_tracks_table() {
+            var titleRow = document.getElementById("titleRow");
+            var artistRow = document.getElementById("artistRow");
+            var averageRow = document.getElementById("averageGradeRow");
+            var yearRow = document.getElementById("yearRow");
+
+            let titleHtml = initialTitleHtml;
+            let artistHtml = initialArtistHtml;
+            let averageHtml = initialAverageGradeHtml;
+            let yearHtml = initialYearHtml;
+
+            for (let i=0; i<tracks.length; i++) {
+                titleHtml += '<td class="trackCell">'+tracks[i].title+'</td>';
+                artistHtml += '<td class="trackCell">'+tracks[i].artist+'</td>';
+                averageHtml += '<td class="trackCell">'+tracks[i].average_grade+'</td>';
+                yearHtml += '<td class="trackCell">'+tracks[i].year+'</td>';
+            }
+            titleRow.innerHTML=titleHtml;
+            artistRow.innerHTML=artistHtml; 
+            averageRow.innerHTML=averageHtml; 
+            yearRow.innerHTML=yearHtml;
+        }
+
+        function populate_tables() {
+            if (initialNameHtml=="") initialNameHtml = document.getElementById("nameRow").innerHTML;
+            if (initialGroupHtml=="") initialGroupHtml = document.getElementById("groupRow").innerHTML; 
+            if (initialGradeHtml=="") initialGradeHtml = document.getElementById("gradeRow").innerHTML;
+
+            if (initialTitleHtml=="") initialTitleHtml = document.getElementById("titleRow").innerHTML;
+            if (initialArtistHtml=="") initialArtistHtml = document.getElementById("artistRow").innerHTML; 
+            if (initialAverageGradeHtml=="") initialAverageGradeHtml = document.getElementById("averageGradeRow").innerHTML;
+            if (initialYearHtml=="") initialYearHtml = document.getElementById("yearRow").innerHTML; 
+
+            populate_student_list(); 
+            populate_track_list();
+            populate_students_table();
+            populate_tracks_table();
+        }
+        
+        function sort_students(column) {
+            if (column=="name") {
+                students.sort(function(s1,s2){
+                    if (s1.name > s2.name) return 1;
+                    else if (s1.name < s2.name) return -1;
+                    return 0;
+                });
+            } else if (column=="grade") {
+                students.sort(function(s1,s2){
+                    if (s1.grade > s2.grade) return 1;
+                    else if (s1.grade < s2.grade) return -1;
+                    return 0;
+                });
+            } else if (column=="group") {
+                students.sort(function(s1,s2){
+                    if (s1.group > s2.group) return 1;
+                    else if (s1.group < s2.group) return -1;
+                    return 0;
+                });
+            }
+            populate_students_table();
+        }
+
+        function sort_tracks(column) {
+            if (column=="title") {
+                tracks.sort(function(t1,t2) {
+                    if (t1.title>t2.title) return 1;
+                    else if (t1.title<t2.title) return -1;
+                    return 0;
+                });
+            } else if (column=="artist") {
+                tracks.sort(function(t1,t2) {
+                    if (t1.artist>t2.artist) return 1;
+                    else if (t1.artist<t2.artist) return -1;
+                    return 0;
+                });
+            } else if (column=="grade") {
+                tracks.sort(function(t1,t2) {
+                    if (t1.average_grade>t2.average_grade) return 1;
+                    else if (t1.average_grade<t2.average_grade) return -1;
+                    return 0;
+                });
+            } else if (column=="year") {
+                tracks.sort(function(t1,t2) {
+                    if (t1.year>t2.year) return 1;
+                    else if (t1.year<t2.year) return -1;
+                    return 0;
+                });
+            }
+            populate_tracks_table();
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="populate_tables()">Populate tables</button>
+    <br>
+    <br>
+
+    <table id="studentsTable" style="border-collapse: collapse; border: 3px solid #5f9ea0;">
+        <tr id="nameRow">
+            <td onclick="sort_students('name')">Name</td>
+        </tr>
+        <tr id="groupRow">
+            <td onclick="sort_students('group')">Group</td>
+        </tr> 
+        <tr id="gradeRow">
+            <td onclick="sort_students('grade')">Grade</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <table id="tracksTable" style="border-collapse: collapse; border: 3px solid #ff80d5;">
+        <tr id="titleRow">
+            <td onclick="sort_tracks('title')">Title</td>
+        </tr>
+        <tr id="artistRow">
+            <td onclick="sort_tracks('artist')">Artist</td>
+        </tr>
+        <tr id="averageGradeRow">
+            <td onclick="sort_tracks('grade')">Average grade</td>
+        </tr>
+        <tr id="yearRow">
+            <td onclick="sort_tracks('year')">Year</td>
+        </tr>
+    </table>
+</body>
+
+</html>

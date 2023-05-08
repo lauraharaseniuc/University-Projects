@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Muta elemente lista</title> 
+    <meta charset="utf-8"/> 
+    <script>
+        function move_element(element,select_id,index) {
+            if (select_id == 1) { 
+                var select1 = document.getElementById("first_list");
+                var select2 =document.getElementById("second_list"); 
+                var option = document.createElement("option");
+                option.text=element;
+                select2.add(option);
+                select1.remove(index);
+            }
+            else if (select_id == 2) { 
+                var select1 = document.getElementById("first_list");
+                var select2 =document.getElementById("second_list"); 
+                var option = document.createElement("option");
+                option.text=element;
+                select1.add(option);
+                select2.remove(index);
+            }
+        }
+    </script>
+</head>
+
+<body bgcolor="#ff80d5">
+    <h3><i>My favourite songs</i></h3> 
+    <select name= "Favourite Songs" id="first_list" onchange="move_element(this.options[this.selectedIndex].text, 1,this.selectedIndex);">
+        <option value="InvisibleOption1" style="display:none;"></option>
+        <option value="option11" >The Bakery</option>
+        <option value="option12" >Dream Synopsis</option>
+        <option value="option13" >Only Ones Who Know</option>
+        <option value="option14" >Cornerstone</option>
+        <option value="option15" >Star Treatment</option>
+        <option value="option16" >Body Paint</option>
+        <option value="option17" >Love Is A Laserquest</option>
+        <option value="option18" >I Bet That You Look Good On The Dancefloor</option>
+    </select>
+
+    <br>
+    <br>
+    <h3><i>My not so favourite favourite songs </i></h3>
+    <select name="Not So Favourite Songs" id="second_list" onchange="move_element(this.options[this.selectedIndex].text, 2,this.selectedIndex);"> 
+        <option value="InvisibleOption2" style="display:none;"></option>
+        <option value="option21" >Leave Before The Lights Come On</option>
+        <option value="option22" >Mardy Bum</option> 
+        <option value="option23" >Crying Lightning</option>
+        <option value="option24" >Snap Out Of It</option> 
+        <option value="option25" >I Wanna Be Yours</option>
+        <option value="option26" >Do I Wanna Know</option>
+    </select>
+</body>
+
+</html>

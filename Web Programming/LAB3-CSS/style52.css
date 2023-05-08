@@ -1,0 +1,26 @@
+#mainDiv{
+	display: flex;
+	width:60%;
+    height: 100%;
+	border:2px solid black;	
+}
+
+h4{
+	position: absolute;
+	margin: 0 50px;
+}
+
+img{
+	border:25px solid;
+	border-color: royalblue;	
+	height: 200px;
+	width: 200px;
+    padding: 3px;
+}
+
+li{
+	
+	float: left;
+	display: flex;
+	margin: 10px;
+}

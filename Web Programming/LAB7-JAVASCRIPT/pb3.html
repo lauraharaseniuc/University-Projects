@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <style>
+        div.tile {
+            background-color: cadetblue;
+            border-style: solid;
+            border-color:azure;
+            border-width: 8px;
+        }
+    </style>
+    <title>Memory Game</title> 
+    <meta charset="utf-8"/> 
+    <script>
+        numbers = [];
+        var n=0;
+        var oneFlipped = false;
+        var flippedTileIndex = -1;
+        var no_of_flipped_tiles = 0;
+        var inital_div_content = "";
+        function closeTiles(index1, index2) {
+            var tile1= document.getElementById("tile"+index1); 
+            var tile2= document.getElementById("tile"+index2);
+
+            tile1.innerHTML='';
+            tile2.innerHTML='';
+            tile1.style.background = "#5f9ea0";
+            tile2.style.background = "#5f9ea0";
+        }
+        function check_game_state() {
+            if (no_of_flipped_tiles == n*n) {
+                alert("You won!");
+                document.getElementById('board').innerHTML=inital_div_content;
+            }
+        }
+        function flipTile(tile, index) { 
+            tile.style.background="#ff80d5";
+            tile.innerHTML=numbers[index]; 
+            if (!oneFlipped) {
+                flippedTileIndex = index;
+                oneFlipped=true;
+            }
+            else {
+                if (numbers[flippedTileIndex]!=numbers[index]) {
+                    let flpIndex = flippedTileIndex;
+                    oneFlipped=false;
+                    flippedTileIndex=-1;
+                    setTimeout(closeTiles, 1300, flpIndex, index);
+                }
+                else {
+                    no_of_flipped_tiles += 2; 
+                    oneFlipped=false;
+                    flippedTileIndex=-1;
+                    check_game_state();
+                }
+            }
+        }
+        function build_game_board(index) {
+            if (inital_div_content=="") {
+                inital_div_content = document.getElementById('board').innerHTML;
+            }
+            numbers = [];
+            if (index==1) {n=2;}
+            if (index==2) {n=4;} 
+            if (index==3) {n=8;} 
+            var tile_height = 100/n;
+            var tile_width = 100/n;
+            var inner_div = inital_div_content; //document.getElementById('board').innerHTML;
+            for (var i=0; i<n*n/2; i++) { numbers.push(i+1);  numbers.push(i+1);}
+            for (var i=0; i<n; i++) {
+                line_div= '<div style="display: flex; width:100%; height:'+tile_width+'%">';
+                for (var j=0; j<n; j++) {
+                    var tile_index = n*i+j;
+                    line_div += '<div id="tile'+tile_index+'" onclick="flipTile(this,'+tile_index+')" class = "tile" style="height:100px; width: '+ tile_height + '%;" ></div>';
+                }
+                line_div += '</div>';
+                inner_div += line_div;
+            }
+            document.getElementById('board').innerHTML=inner_div;
+        }
+    </script>
+</head>
+
+<body>
+    <h2 align="center"><i>Test your memory</i></h2>
+    <div id="board" style="background-color: azure; margin:0 auto; width: 70%; height:70%;" >
+        <h4 style="text-align: center;">Select table size: </h4>
+        <select style="display: block; width:20%; margin:0 auto; text-align: center;" onchange="build_game_board(this.selectedIndex);"> 
+            <option value="invisibleOption" style="display: none;"></option>
+            <option value="">2x2</option>
+            <option value="">4x4</option>
+            <option value="">8x8</option>
+        </select>
+    </div>
+</body>
+
+</html>

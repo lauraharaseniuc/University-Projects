@@ -1,0 +1,49 @@
+#headerId {
+    background-color: rebeccapurple;
+    height: 150px;
+    flex-grow: 1;
+}
+
+#footerId {
+    background-color: blanchedalmond;
+    flex-grow: 1;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#pageBody {
+    background-color: burlywood;
+    display: flex;
+    flex: 8;
+}
+
+nav {
+    background: aquamarine;
+    order: 1;
+    flex-grow: 1;
+}
+
+#pageContentDiv {
+    flex-grow: 9;
+    order: 2;
+}
+
+nav a {
+    border: 1px solid black;
+    background-color: aquamarine; 
+    color: black;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    text-align: center;
+    flex-grow: 1;
+}
+
+nav a:hover {
+    background-color: cadetblue;
+}

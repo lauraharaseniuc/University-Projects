@@ -1,0 +1,20 @@
+#mainDiv {
+    display: flex;
+    border-width: 3px;
+    border-style: solid;
+}
+
+#innerLeftDiv {
+    width: 200px;
+    margin: auto;
+}
+
+#innerRightDiv {
+    width: 200px;
+    margin: auto; 
+}
+
+#rightDivImage {
+    max-width: 200px;
+    vertical-align: middle;
+}

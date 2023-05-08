@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Carusel de imagini</title> 
+    <meta charset="utf-8"/> 
+    <style>
+        img {
+            height: 200px;
+            width: 210px;
+        }
+        a {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        li {
+            position: relative;
+            display: none;
+        }
+        #li0 {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        var photo_index=0;
+        var no_of_photos=5;
+        function next_photo() {
+            clearTimeout(timeoutId);
+            change_photo();
+        }
+        function previous_photo() {
+            clearTimeout(timeoutId);
+            document.getElementById("li"+photo_index).style.display="none"; 
+            photo_index -=1;
+            if (photo_index==-1) {
+                photo_index=4;
+            }
+            document.getElementById("li"+photo_index).style.display="inline-block";
+            timeoutId=setTimeout(change_photo,5000);
+        }
+        function change_photo() {
+            document.getElementById("li"+photo_index).style.display="none"; 
+            photo_index += 1;
+            if (photo_index==no_of_photos) {
+                photo_index = 0;
+            }
+            document.getElementById("li"+photo_index).style.display="inline-block";
+            timeoutId=setTimeout(change_photo,5000);
+        }
+        var timeoutId = setTimeout(change_photo,5000);
+    </script>
+</head>
+
+<body>
+    <h2 align="center"><i>Amintiri din liceu</i></h2>
+    <div id="mainDiv" style="background-color: #ff80d5; margin:0 auto; width: 70%; height:70%;" >
+        <ol style="text-align: center;">
+            <li id="li0">
+                <img src="img/img1.png" alt="">
+                <div>
+                    <a href="https://www.youtube.com/watch?v=HOw2kuHOixM">The Bakery</a>
+                </div>
+            </li>
+            <li id="li1">
+                <img src="img/img2.png" alt="">
+                <div>
+                    <a href="https://www.youtube.com/watch?v=-ivSSsNq3i0&list=RD-ivSSsNq3i0&start_radio=1">Dream Synopsis</a>
+                </div>
+            </li>
+            <li id="li2">
+                <img src="img/img3.png" alt="">
+                <div>
+                    <a href="https://www.youtube.com/watch?v=gBdwZeK4igM&list=RD-ivSSsNq3i0&index=8">Body Paint</a>
+                </div>
+            </li>
+            <li id="li3">
+                <img src="img/img4.jpg" alt="">
+                <div>
+                    <a href="https://www.youtube.com/watch?v=qL4m04OyCkY&list=RD-ivSSsNq3i0&index=29">One Point Perspective</a>
+                </div>
+            </li>
+            <li id="li4">
+                <img src="img/img5.jpg" alt="">
+                <div>
+                    <a href="https://www.youtube.com/watch?v=KpOtuoHL45Y">Liebestraum</a>
+                </div>
+            </li>
+        </ol>
+        <button style="background-color: cadetblue; position: relative; float: left" onclick="next_photo()">NEXT</button>
+        <button style="background-color: cadetblue; position: relative; float: right;" onclick="previous_photo()">PREV</button>
+    </div>
+</body>
+
+</html>

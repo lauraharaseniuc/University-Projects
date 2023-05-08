@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Valideaza formular</title> 
+    <meta charset="utf-8"/> 
+    <script>
+        function isEmpty(value) {
+            return value=="";
+        }
+        function check_date(date) {
+            var chosen_date=new Date(date);
+            return chosen_date.getTime() < new Date().getTime();
+        }
+        function check_age(age) {
+            return /^[0-9]+$/.test(age);
+        }
+        function check_email(email) {
+            return /^[^@]+@[a-zA-Z]+\.[a-zA-Z]+$/.test(email);
+        }
+
+        function validate_data(element,select_id,index) { 
+            var name_field=document.getElementById("nameField");
+            var date_field=document.getElementById("birthDateField");
+            var age_field=document.getElementById("ageField");
+            var email_field=document.getElementById("emailField");
+
+            var name_value = document.getElementById("nameField").value; 
+            var date_value = document.getElementById("birthDateField").value;
+            var age_value = document.getElementById("ageField").value; 
+            var email_value = document.getElementById("emailField").value;
+            
+            var error_msg="";
+            if (isEmpty(name_value)) { 
+                error_msg += "Name field is empty!\n";
+                name_field.style.border = "solid red";
+            } 
+            else if (name_value.length > 30) {
+                error_msg += "The name should not have more that 30 characters!\n";
+                name_field.style.border = "solid red";
+            }
+            else {
+                name_field.style.border="none";
+            }
+
+            if (isEmpty(date_value)) { 
+                error_msg += "Birthdate field is empty!\n";
+                date_field.style.border = "solid red";
+            } 
+            else if (! check_date(date_value)) {
+                error_msg += "Can not pick a date greater than the current date!\n";
+                date_field.style.border = "solid red";
+            }
+            else {
+                date_field.style.border = "none";
+            }
+
+
+            if (isEmpty(age_value)) { 
+                error_msg += "Age field is empty!\n";
+                age_field.style.border = "solid red";
+            }
+            else if (! check_age(age_value)) {
+                error_msg += "Age field should be a number!\n";
+                age_field.style.border = "solid red";
+            } 
+            else if (! (age_value >=0 && age_value<=124)) {
+                error_msg += "Age field should be a number between 0 and 124!\n";
+                age_field.style.border = "solid red";
+            }
+            else {
+                age_field.style.border = "none";
+            }
+
+            if (isEmpty(email_value)) { 
+                error_msg += "Email field is empty!\n";
+                email_field.style.border = "solid red";
+            }
+            else if (! check_email(email_value)) {
+                error_msg += "Ivalid email address!\n";
+                email_field.style.border = "solid red";
+            }
+            else {
+                email_field.style.border = "none";
+            }
+
+            if(error_msg.length>0){
+			alert(error_msg);
+			return false;
+		    }
+		    else{
+			    alert('Datele sunt completate corect');
+			    return false;
+		    }
+        }
+    </script>
+</head>
+
+<body bgcolor="#ff80d5">
+    <form action="" id="myForm" onsubmit="return validate_data()">
+        <label for="nameField">Name: </label>
+        <input type="text" id="nameField"><br><br><br>
+        <label for="birthDateField">BirthDate: </label>
+        <input type="date" id="birthDateField"><br><br><br>
+        <label for="ageField">Age: </label> 
+        <input type="text" id="ageField"><br><br><br>
+        <label for="emailField">Email: </label> 
+        <input type="text" id="emailField"><br><br><br>
+        <input type="submit" value="Send">
+    </form>
+</body>
+</html>
