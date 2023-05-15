@@ -1,0 +1,14 @@
+select * from routes 
+insert into routes(departure, arrival) values ('Cluj-Napoca','Oradea'), ('Cluj-Napoca','Brasov'), ('Zalau','Tasnad'), ('Jibou', 'Tasnad'), ('Jibou','Dej'), ('Jibou','Baia-Mare'), ('Zalau','Mangalia')
+select * from routes limit 0,2
+select * from users
+insert into users(first_name, last_name, phone, email) values ('Cretiu','Tudor','0723','cctudor@gmail.com'), 
+('Darabant','Alex','0789','darabelul12@gmail.com'),
+('Olar','Alex','0783','olarul_polarul@yahoo.com'), 
+('Remes','Daria','0756','dariuta25@gmail.com'), 
+('Tamas','Adela','0790','tamade33@yahoo.ro'), 
+('Suciu','Maria','0788','msuciu5@gmail.com'), 
+('Catrina','Dana','0752','catrinelll@gmail.com'), 
+('Hara','Stefan','0721','stefanx@gmail.com'), 
+('Rosca','Vlad','0765','v_rosca45@yahoo.com')
+select count(*) from users

@@ -1,0 +1,87 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Paginare</title> 
+    <meta charset="utf-8"/> 
+
+    <script>
+        var record_count=0;
+        var no_of_records=0;
+        var request;
+        function initialize() {
+            getNoOfRecs();
+            getRecs();
+        }
+        function getNoOfRecs() {
+            let nrequest = new XMLHttpRequest(); 
+            let aux = -1;
+            nrequest.onreadystatechange = function() {
+                if (nrequest.readyState==4) {
+                    if (nrequest.status==200) {
+                        aux = nrequest.responseText;
+                        no_of_records=aux;
+                    }
+                    else {
+                        console.log('Eroare: '+nrequest.status);
+                    }
+                }
+            };
+            let url='http://localhost:8000/getNumberOfRecords.php'; 
+            nrequest.open('GET', url, true); 
+            nrequest.send('');
+        }
+        function getRecs() {
+            request = new XMLHttpRequest(); 
+            request.onreadystatechange = function() {
+                if (request.readyState==4) {
+                    if (request.status==200) {
+                        document.getElementById("mainDiv").innerHTML=request.responseText;
+                    }
+                    else {
+                        console.log('Eroare: '+request.status);
+                    }
+                }
+            };
+            let url='http://localhost:8000/getThreeRecords.php'; 
+            url = url + '?rec_no='+record_count;
+            request.open('GET', url, true); 
+            request.send(null);
+        }
+        function perviousThreeUsers() {
+            record_count -= 3;
+            if (record_count-3 < 0) {
+                document.getElementById("prevButton").disabled=true;
+                record_count=0;
+            }
+            if (document.getElementById("nextButton").disabled) {
+                document.getElementById("nextButton").disabled=false;
+            }
+            getRecs();
+        }
+        function nextThreeUsers() {
+            record_count += 3;
+            if (record_count+3 >= no_of_records) {
+                document.getElementById("nextButton").disabled=true;
+            }
+            if (document.getElementById("prevButton").disabled) {
+                document.getElementById("prevButton").disabled=false;
+            }
+            getRecs(); 
+        }
+    </script>
+
+</head>
+
+<body bgcolor="#ffb3b3" onload="initialize()">
+    <h1 style="text-align: center;">Paginare useri</h1>
+    <div style="text-align: center;" id="mainDiv">  
+        Nuci de macadamia<br>
+        Nuci de cocos
+    </div>
+    <div id="buttonsDiv">
+        <button disabled style="float: left;" onclick="perviousThreeUsers()" id="prevButton">Prev</button> 
+        <button style="float: right;" onclick="nextThreeUsers()" id="nextButton">Next</button>
+    </div>
+</body>
+
+</html>

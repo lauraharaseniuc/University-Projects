@@ -1,0 +1,129 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>X si O</title> 
+    <meta charset="utf-8"/> 
+    <style>
+        td, th, tr {
+            border: 3px solid #5f9ea0;
+            border-collapse: collapse;
+        }
+        td {
+            text-align: center;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+    <script>
+        var no_of_moves=0;
+        var request;
+        var free_positions = [0,1,2,3,4,5,6,7,8];
+        var human_moves =[]; 
+        var machine_moves=[];
+        var result;
+
+        function getIndex(arr, elem) {
+            for (let i=0; i<arr.length; i++) {
+                if (arr[i]==elem) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        function checkForWinner(human_moves, machine_moves) {
+            let nrequest = new XMLHttpRequest(); 
+            nrequest.onreadystatechange = function() {
+            if (nrequest.readyState==4) {
+                if (nrequest.status==200) {
+                    result = nrequest.responseText;
+                    if (nrequest.responseText==1) { 
+                        alert('Human won!');
+                    }
+                }
+                else {
+                    console.log('Eroare: '+nrequest.status);
+                }
+            }
+            };
+            let url='http://localhost:8000/checkWinner.php'; 
+            url = url + '?human='+human_moves;
+            url = url + '&machine='+machine_moves;
+            nrequest.open('GET', url, true); 
+            nrequest.send(null);
+        }
+
+        function cellClicked(index) {
+            document.getElementById('errorLabel').innerHTML='';
+            if (no_of_moves <= 8) {
+                let real_index = getIndex(free_positions,index); 
+                if (document.getElementById('cell'+index).innerHTML=='') {
+                    document.getElementById('cell'+index).innerHTML='X';
+                    human_moves.push(index);
+                    no_of_moves += 1;
+                    free_positions.splice(real_index,1);
+                    if (human_moves.length >=3) {
+                        checkForWinner(human_moves, machine_moves);
+                    }
+                    if (no_of_moves==9) {
+                        return;
+                    }
+                    else {
+                        //machine moves
+                        request = new XMLHttpRequest(); 
+                        request.onreadystatechange = function() {
+                        if (request.readyState==4) {
+                            if (request.status==200) {
+                                let move_index = getIndex(free_positions, request.responseText); 
+                                //alert("result: "+request.responseText+" at index: "+move_index+" free: "+free_positions);
+                                document.getElementById('cell'+request.responseText).innerHTML='O';
+                                machine_moves.push(request.responseText);
+                                free_positions.splice(move_index,1);
+                                no_of_moves += 1;
+                            }
+                            else {
+                                console.log('Eroare: '+request.status);
+                            }
+                        }
+                        };
+                        let url='http://localhost:8000/makeMove.php'; 
+                        url = url + '?positions='+free_positions;
+                        url = url + '&length='+free_positions.length;
+                        request.open('GET', url, true); 
+                        request.send(null);
+                    }
+                }
+                else {
+                    document.getElementById('errorLabel').innerHTML='Mutarile se fac numai in casutele libere!';
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body bgcolor="#ffff99">
+    <h1 style="text-align: center;">Tick-Tack-Toe</h1>
+    <p id="errorLabel" style="text-align: center; color: red;"></p>
+    <div style="display:inline-flex; justify-content: center; height: 100%; width: 100%;">  
+        <table>
+            <tr>
+                <td id="cell0" onclick="cellClicked(0)"></td>
+                <td id="cell1" onclick="cellClicked(1)"></td>
+                <td id="cell2" onclick="cellClicked(2)"></td>
+            </tr>
+            <tr>
+                <td id="cell3" onclick="cellClicked(3)"></td>
+                <td id="cell4" onclick="cellClicked(4)"></td>
+                <td id="cell5" onclick="cellClicked(5)"></td>
+            </tr>
+            <tr>
+                <td id="cell6" onclick="cellClicked(6)"></td>
+                <td id="cell7" onclick="cellClicked(7)"></td>
+                <td id="cell8" onclick="cellClicked(8)"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Plecari - Sosiri</title> 
+    <meta charset="utf-8"/> 
+
+    <script>
+        var request;
+        function getArrivals(departure_city) {
+            request = new XMLHttpRequest(); 
+            request.onreadystatechange = function() {
+                if (request.readyState==4) {
+                    if (request.status==200) {
+                        document.getElementById("lista_sosiri").innerHTML=request.responseText;
+                    }
+                    else {
+                        console.log('Eroare: '+request.status);
+                    }
+                }
+            };
+            let url='http://localhost:8000/getArrivals.php'; 
+            url = url + '?depcity='+departure_city;
+            request.open('GET', url, true); 
+            request.send(null);
+        }
+        function get_departures() {
+            request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState==4) {
+                    if (request.status==200) {
+                        document.getElementById("lista_plecari").innerHTML = request.responseText;
+                    }
+                    else {
+                        console.log('Eroare: '+request.status);
+                    }
+                }
+            };
+            let url='http://localhost:8000/getDepartures.php';
+            request.open('GET', url, true);
+            request.send(null);
+        }
+    </script>
+
+</head>
+
+<body bgcolor="#ff80d5" onload="get_departures()">
+    <h1>Departamentul Plecari si Sosiri</h1>
+    <select name="" id="lista_plecari" onchange="getArrivals(this.options[this.selectedIndex].text)">
+        
+    </select>
+
+    <select name="" id="lista_sosiri">
+        
+    </select>
+</body>
+
+</html>

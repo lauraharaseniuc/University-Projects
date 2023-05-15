@@ -1,0 +1,74 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Paginare</title> 
+    <meta charset="utf-8"/> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script>
+        var record_count=0;
+        var no_of_records=0;
+        var request;
+        $(function() {
+            getNoOfRecs();
+            getRecs();
+        })
+        
+        function getNoOfRecs() {
+            $.ajax( {
+                type: 'GET',
+                url: 'http://localhost:8000/getNumberOfRecords.php',
+                success: function(response) {
+                    no_of_records=response;
+                }
+            });
+        }
+        function getRecs() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8000/getThreeRecords.php',
+                data: 'rec_no=' + record_count,
+                success: function(response) {
+                    $("#mainDiv").html(response);
+                }
+            });
+        }
+
+        function perviousThreeUsers() {
+            record_count -= 3;
+            if (record_count-3 < 0) {
+                $("#prevButton").attr('disabled',true);
+                record_count=0;
+            }
+            if ($("#nextButton").attr('disabled',true)) {
+                $("#nextButton").attr('disabled',false);
+            }
+            getRecs();
+        }
+        function nextThreeUsers() {
+            record_count += 3;
+            if (record_count+3 >= no_of_records) {
+                $("#nextButton").attr('disabled',true);
+            }
+            if ($("#prevButton").attr('disabled',true)) {
+                $("#prevButton").attr('disabled',false);
+            }
+            getRecs(); 
+        }
+    </script>
+
+</head>
+
+<body bgcolor="#ffb3b3">
+    <h1 style="text-align: center;">Paginare useri</h1>
+    <div style="text-align: center;" id="mainDiv">  
+        Nuci de macadamia<br>
+        Nuci de cocos
+    </div>
+    <div id="buttonsDiv">
+        <button disabled style="float: left;" onclick="perviousThreeUsers()" id="prevButton">Prev</button> 
+        <button style="float: right;" onclick="nextThreeUsers()" id="nextButton">Next</button>
+    </div>
+</body>
+
+</html>

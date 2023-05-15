@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Plecari - Sosiri</title> 
+    <meta charset="utf-8"/> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        var request;
+        $(function(){
+            get_departures();
+        });
+        function getArrivals(departure_city) {
+            $.ajax({
+                type: 'GET', 
+                url: 'http://localhost:8000/getArrivals.php',
+                data: 'depcity='+departure_city,
+                success: function(response) {
+                    $("#lista_sosiri").html(response);
+                }
+            });
+        }
+        function get_departures() {
+            $.ajax({
+                type: 'GET', 
+                url: 'http://localhost:8000/getDepartures.php',
+                success: function(response) { 
+                    $("#lista_plecari").html(response);
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body bgcolor="#ff80d5">
+    <h1>Departamentul Plecari si Sosiri</h1>
+    <select name="" id="lista_plecari" onchange="getArrivals(this.options[this.selectedIndex].text)">
+        
+    </select>
+
+    <select name="" id="lista_sosiri">
+        
+    </select>
+</body>
+
+</html>
